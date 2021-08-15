@@ -15,7 +15,6 @@ class DestinationCell: UICollectionViewCell {
     @IBOutlet weak var ratingStar: UITabBar!
     @IBOutlet weak var desc: UILabel!
     
-    
     var country: Destination! {
         didSet {
             contentView.clipsToBounds = true
@@ -30,13 +29,7 @@ class DestinationCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
     }
-    
-    
-    func setupView() {
         
-        
-    }
-    
     
     func setupNameLabel() {
         destinationLabel.font = .avertaBold(fontSize: 38)

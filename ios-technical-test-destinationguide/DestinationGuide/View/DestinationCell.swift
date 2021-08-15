@@ -12,7 +12,7 @@ class DestinationCell: UICollectionViewCell {
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var cardView: UIImageView!
     @IBOutlet weak var destinationLabel: UILabel!
-    @IBOutlet weak var ratingStar: UITabBar!
+    @IBOutlet weak var ratingStar: UIStackView!
     @IBOutlet weak var desc: UILabel!
     
     var country: Destination! {
@@ -20,7 +20,6 @@ class DestinationCell: UICollectionViewCell {
             contentView.clipsToBounds = true
             contentView.layer.cornerRadius = 10
             destinationLabel.text = country.name
-            cardView.load(url: country.picture)
             desc.text = country.tag
         }
     }
@@ -30,6 +29,12 @@ class DestinationCell: UICollectionViewCell {
         setupViews()
     }
         
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupViews()
+    }
+    
     
     func setupNameLabel() {
         destinationLabel.font = .avertaBold(fontSize: 38)
@@ -51,17 +56,17 @@ class DestinationCell: UICollectionViewCell {
     }
     
     func setupCardView() {
+        cardView.load(url: country.picture)
         cardView.layer.cornerRadius = 10
-        clipsToBounds = true
         cardView.layer.shadowColor = .init(gray: 100, alpha: 20)
+        clipsToBounds = true
         view.addSubview(cardView)
         
     }
     
     func setupRatingStar() {
-        
+       
     }
-    
     
     func setupViews() {
     setupNameLabel()
@@ -70,11 +75,7 @@ class DestinationCell: UICollectionViewCell {
     }
     
     
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
+
     
  
     

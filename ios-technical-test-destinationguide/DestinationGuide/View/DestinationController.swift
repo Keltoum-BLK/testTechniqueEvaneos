@@ -7,32 +7,40 @@
 
 import UIKit
 
-class DestinationController: UIViewController {
+class DestinationController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegate {
 
-    var collectionView: UICollectionView?
+    var collectionView: UICollectionView!
+    
     let idCell = "idCell"
-    var travels: [Destination]?
+    var travels = [Destination]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         collectionView?.dataSource = self
         collectionView?.delegate = self
+        recoverData(tab: travels)
+    
+        // Do any additional setup after loading the view.
+    }
+    
+    func recoverData(tab: [Destination])  {
+        
         DestinationFetchingService.shared.getDestinations { result in
             switch result {
             case .success(let destionations):
                 DispatchQueue.main.async { [self] in
                     self.travels = Array(destionations)
                     collectionView?.reloadData()
-                    for place in travels! {
+                    for place in travels {
                         print(place.name)
+                        
                     }
                 }
             case .failure(_):
                 return
             }
             }
-        // Do any additional setup after loading the view.
     }
     
     func setupCollectionView() {
@@ -40,15 +48,9 @@ class DestinationController: UIViewController {
         let layout = UICollectionViewLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.backgroundColor = .white
-        collectionView?.register(DestinationCell.self, forCellWithReuseIdentifier: "DestinationCell")
+        collectionView?.register(DestinationCell.self, forCellWithReuseIdentifier: idCell)
         self.view = collectionView
     }
-    
-  
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.}
     
 //trouver la bonne syntaxe
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,31 +58,19 @@ class DestinationController: UIViewController {
 //        self.navigationController?.pushViewController(destinationDetails, animated: true)
 //    }
     
-}
-
-extension UIViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return travels.count
     }
     
-    public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 20
-    }
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DestinationCell" , for: indexPath) as! DestinationCell
-////        guard let destinations = travels else { return cell }
-//        cell.destinationLabel.text = destinations[indexPath.item].name
-//        cell.desc.text = destinations[indexPath.item].name
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: idCell , for: indexPath) as! DestinationCell
+        collectionView.addSubview(cell)
+        cell.backgroundColor = .black
        return cell
     }
     
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 340, height: 280)
-    }
- 
+  
     }
     
     

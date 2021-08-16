@@ -10,16 +10,17 @@ import UIKit
 class DestinationCell: UICollectionViewCell {
     
     static let identifier = "destinationCell"
-  
-    private let maxOfStars = 5
-    let fullStarImage = UIImage(systemName: "star.fill")
-    let starImageTab = [UIImageView]()
+    var tabStar = [UIImageView]()
+    let maxOfStar = 5
     
-    
-    let starImage: UIImageView = {
-    let uiV = UIImageView()
-        
-        return uiV
+    var starImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "star.fill")
+        image.contentMode = .scaleAspectFill
+        image.sizeToFit()
+        image.tintColor = .orange
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
     }()
     
     var cardView: UIImageView = {
@@ -39,6 +40,7 @@ class DestinationCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
+        label.backgroundColor = .blue
         return label
     }() // Ne pas oublier de construire ton label
     
@@ -47,10 +49,12 @@ class DestinationCell: UICollectionViewCell {
         let starsField = UIStackView()
         starsField.axis = .horizontal
         starsField.alignment = .trailing
-        starsField.spacing = 2
+        starsField.spacing = 10
         starsField.distribution = .fillEqually
+        starsField.alignment = .fill
         starsField.clipsToBounds = true
         starsField.translatesAutoresizingMaskIntoConstraints = false
+        starsField.backgroundColor = .blue
         return starsField
     }()
    
@@ -84,6 +88,11 @@ class DestinationCell: UICollectionViewCell {
         setUpConstraints()
         
     }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+    }
         
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -95,12 +104,12 @@ class DestinationCell: UICollectionViewCell {
         destinationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
         destinationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50).isActive = true
         destinationLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100).isActive = true
-        destinationLabel.bottomAnchor.constraint(equalTo:contentView.bottomAnchor, constant: -100).isActive = true
+        destinationLabel.bottomAnchor.constraint(equalTo:contentView.bottomAnchor, constant: -120).isActive = true
         
         contentView.addSubview(desc)
         desc.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
         desc.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -220).isActive = true
-        desc.topAnchor.constraint(equalTo: destinationLabel.bottomAnchor, constant:  30).isActive = true
+        desc.topAnchor.constraint(equalTo: destinationLabel.bottomAnchor, constant:  50).isActive = true
         desc.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30).isActive = true
         
         contentView.addSubview(cardView)
@@ -112,9 +121,10 @@ class DestinationCell: UICollectionViewCell {
         
         contentView.addSubview(ratingStar)
         ratingStar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
-        ratingStar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -220).isActive = true
-        ratingStar.topAnchor.constraint(equalTo: destinationLabel.bottomAnchor, constant:  10).isActive = true
+        ratingStar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -150).isActive = true
+        ratingStar.topAnchor.constraint(equalTo: destinationLabel.bottomAnchor, constant: 5).isActive = true
         ratingStar.bottomAnchor.constraint(equalTo: desc.topAnchor, constant: -10).isActive = true
+        
     }
     
     private func contentViewSetUp() {
@@ -126,10 +136,15 @@ class DestinationCell: UICollectionViewCell {
         layer.shadowOffset = CGSize(width: 0, height: 4)
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
+    
+    func setRating(for rating : Int) {
+        for _ in 0...maxOfStar {
+            tabStar.append(starImage)
+            ratingStar.addSubview(starImage)
+        }
     }
+    
+    
 }
     
 

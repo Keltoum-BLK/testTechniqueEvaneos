@@ -14,6 +14,7 @@ class DestinationDetailsController: UIViewController {
     
     var idDestination: String?
     var travelDetails: [DestinationDetails]?
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         

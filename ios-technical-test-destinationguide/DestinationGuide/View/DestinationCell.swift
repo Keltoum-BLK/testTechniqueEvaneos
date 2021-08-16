@@ -8,73 +8,56 @@
 import UIKit
 
 class DestinationCell: UICollectionViewCell {
-
-    @IBOutlet weak var view: UIView!
-    @IBOutlet weak var cardView: UIImageView!
-    @IBOutlet weak var destinationLabel: UILabel!
-    @IBOutlet weak var ratingStar: UIStackView!
-    @IBOutlet weak var desc: UILabel!
     
-    var country: Destination! {
-        didSet {
-            contentView.clipsToBounds = true
-            contentView.layer.cornerRadius = 10
-            destinationLabel.text = country.name
-            desc.text = country.tag
-        }
+    static let identifier = "destinationCell"
+
+
+     var cardView: UIImageView {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "star.fill")
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .blue
+        imageView.clipsToBounds = true
+        return imageView
     }
+    var destinationLabel: UILabel {
+        let label = UILabel()
+        label.textColor = .white
+        label.backgroundColor = .gray
+        label.clipsToBounds = true
+        return label
+    }
+    var ratingStar = UIStackView()
+    var desc = UILabel()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
+        layoutSubviews()
+        contentViewSetUp()
+        contentView.addSubview(cardView)
+        contentView.addSubview(destinationLabel)
+       
     }
         
+    private func contentViewSetUp() {
+        contentView.layer.cornerRadius = 20
+        contentView.backgroundColor = .gray
+        contentView.clipsToBounds = true
+    }
+    
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupViews()
-    }
-    
-    
-    func setupNameLabel() {
-        destinationLabel.font = .avertaBold(fontSize: 38)
-        destinationLabel.textColor = .white
-        destinationLabel.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
-        destinationLabel.layoutMargins.left = 8
-        clipsToBounds = true
-        view.addSubview(destinationLabel)
-    }
-    
-    
-    func setupDesc() {
-        desc.textColor = .white
-        desc.font = .avertaBold(fontSize: 16)
-        desc.layoutMargins.left = 8
-        desc.backgroundColor = .darkGray
-        clipsToBounds = true
-        view.addSubview(desc)
-    }
-    
-    func setupCardView() {
-        cardView.load(url: country.picture)
-        cardView.layer.cornerRadius = 10
-        cardView.layer.shadowColor = .init(gray: 100, alpha: 20)
-        clipsToBounds = true
-        view.addSubview(cardView)
         
     }
     
-    func setupRatingStar() {
-       
+   
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     }
-    
-    func setupViews() {
-    setupNameLabel()
-    setupDesc()
-    setupCardView()
-    }
-    
-    
 
     
  

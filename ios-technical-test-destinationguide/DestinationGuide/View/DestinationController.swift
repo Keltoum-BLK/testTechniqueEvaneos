@@ -8,55 +8,80 @@
 import UIKit
 
 class DestinationController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegate {
-
-    var collectionView: UICollectionView!
     
-    let idCell = "idCell"
+    private var collectionView: UICollectionView?
+    private var activityIndicator = UIActivityIndicatorView(style: .large)
+    private let idCell = "idCell"
     var travels = [Destination]()
+    var loadData = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        collectionView?.dataSource = self
-        collectionView?.delegate = self
         recoverData(tab: travels)
-    
+        
         // Do any additional setup after loading the view.
     }
     
     func recoverData(tab: [Destination])  {
-        
+        //        activitySetup()
+        //        loadData = false
         DestinationFetchingService.shared.getDestinations { result in
             switch result {
             case .success(let destionations):
                 DispatchQueue.main.async { [self] in
                     self.travels = Array(destionations)
                     collectionView?.reloadData()
-                    for place in travels {
-                        print(place.name)
+                    print(self.travels.count)
                         
                     }
-                }
             case .failure(_):
                 return
+                }
+           
             }
-            }
-    }
+        }
     
     func setupCollectionView() {
-        navigationItem.title = "Destinations"
-        let layout = UICollectionViewLayout()
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let view = UIView()
+        view.backgroundColor = .white
+        setupLayout()
+        collectionView?.register(DestinationCell.self, forCellWithReuseIdentifier: DestinationCell.identifier)
         collectionView?.backgroundColor = .white
-        collectionView?.register(DestinationCell.self, forCellWithReuseIdentifier: idCell)
+        collectionView?.dataSource = self
+        collectionView?.delegate = self
+        view.addSubview(collectionView ?? UICollectionView())
         self.view = collectionView
+        navigationItem.title = "Destinations"
+        
     }
     
-//trouver la bonne syntaxe
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destinationDetails = storyboard?.instantiateViewController(withIdentifier: "destinationsDetails") as! DestinationDetails
-//        self.navigationController?.pushViewController(destinationDetails, animated: true)
-//    }
+    func setupLayout() {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        layout.minimumInteritemSpacing = 20
+        layout.itemSize = CGSize(width: self.view.frame.width - 40, height: view.frame.height - 580)
+        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+    }
+    
+    func activitySetup() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        collectionView?.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        
+        //        if !loadData {
+        //            activityIndicator.stopAnimating()
+        //        } else {
+        //            activityIndicator.startAnimating()
+        //        }
+    }
+    
+    //trouver la bonne syntaxe
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        let destinationDetails = storyboard?.instantiateViewController(withIdentifier: "destinationsDetails") as! DestinationDetails
+    //        self.navigationController?.pushViewController(destinationDetails, animated: true)
+    //    }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -64,15 +89,14 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: idCell , for: indexPath) as! DestinationCell
-        collectionView.addSubview(cell)
-        cell.backgroundColor = .black
-       return cell
-    }
-    
-  
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.identifier , for: indexPath) as! DestinationCell
+        cell.destinationLabel.text = travels[indexPath.row].name
+        return cell
     }
     
     
-    
+}
+
+
+
 

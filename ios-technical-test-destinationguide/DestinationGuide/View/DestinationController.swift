@@ -75,26 +75,25 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
         //        }
     }
     
-    //trouver la bonne syntaxe
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        let destinationDetails = storyboard?.instantiateViewController(withIdentifier: "destinationsDetails") as! DestinationDetails
-    //        self.navigationController?.pushViewController(destinationDetails, animated: true)
-    //    }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let destinationDetails = storyboard?.instantiateViewController(withIdentifier: "WebPage") as? DestinationDetailsController
+        destinationDetails?.idDestination = travels[indexPath.row].id
+        self.navigationController?.pushViewController(destinationDetails ?? UIViewController(), animated: true)
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return travels.count
     }
-    
+    // the idDestination to another view to reuse it to recover webpage and destination's name for title
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.identifier , for: indexPath) as! DestinationCell
         cell.destinationLabel.text = travels[indexPath.row].name
         cell.desc.text = travels[indexPath.row].tag?.lowercased()
         cell.setRating(for: travels[indexPath.row].rating)
+        cell.cardView.downloaded(from: travels[indexPath.row].picture)
         return cell
     }
-    
-    
+
 }
 
 

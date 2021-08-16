@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImageView {
     
-    
+//
 //    func load(url: URL) {
 //            DispatchQueue.global().async { [weak self] in
 //                if let data = try? Data(contentsOf: url) {
@@ -22,7 +22,7 @@ extension UIImageView {
 //                }
 //            }
 //        }
-    
+//
 //}
 private func downloadAvatar(destination: Destination) {
 

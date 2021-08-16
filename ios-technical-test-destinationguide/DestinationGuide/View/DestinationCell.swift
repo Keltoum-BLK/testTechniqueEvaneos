@@ -10,15 +10,24 @@ import UIKit
 class DestinationCell: UICollectionViewCell {
     
     static let identifier = "destinationCell"
-    var countries = [Destination]()
+  
+    private let maxOfStars = 5
+    let fullStarImage = UIImage(systemName: "star.fill")
+    let starImageTab = [UIImageView]()
     
-   
+    
+    let starImage: UIImageView = {
+    let uiV = UIImageView()
+        
+        return uiV
+    }()
     
     var cardView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .lightGray
         imageView.clipsToBounds = true
+        imageView.layer.opacity = 12
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -34,7 +43,16 @@ class DestinationCell: UICollectionViewCell {
     }() // Ne pas oublier de construire ton label
     
     
-    var ratingStar = UIStackView()
+    var ratingStar: UIStackView = {
+        let starsField = UIStackView()
+        starsField.axis = .horizontal
+        starsField.alignment = .trailing
+        starsField.spacing = 2
+        starsField.distribution = .fillEqually
+        starsField.clipsToBounds = true
+        starsField.translatesAutoresizingMaskIntoConstraints = false
+        return starsField
+    }()
    
     var desc: UILabel = {
         let descLabel = UILabel()
@@ -91,15 +109,21 @@ class DestinationCell: UICollectionViewCell {
         cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
         cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
         cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
+        
+        contentView.addSubview(ratingStar)
+        ratingStar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+        ratingStar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -220).isActive = true
+        ratingStar.topAnchor.constraint(equalTo: destinationLabel.bottomAnchor, constant:  10).isActive = true
+        ratingStar.bottomAnchor.constraint(equalTo: desc.topAnchor, constant: -10).isActive = true
     }
     
     private func contentViewSetUp() {
         contentView.layer.cornerRadius = 20
         contentView.backgroundColor = .clear
         contentView.clipsToBounds = true
-        contentView.layer.shadowColor = .init(gray: 100, alpha: 20)
-        contentView.layer.shadowRadius = 10
-        contentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowOpacity = 0.2
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 4)
     }
     
     required init?(coder: NSCoder) {

@@ -90,7 +90,8 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.identifier , for: indexPath) as! DestinationCell
         cell.destinationLabel.text = travels[indexPath.row].name
         cell.desc.text = travels[indexPath.row].tag?.lowercased()
-       
+        cell.cardView.d
+        cell.ratingStar.tag = travels[indexPath.row].rating
         return cell
     }
     

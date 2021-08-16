@@ -10,7 +10,7 @@ import WebKit
 class DestinationDetailsController: UIViewController {
 
     
-    @IBOutlet weak var webPage : WKWebView!
+   var webPage =  WKWebView()
     
     var idDestination: String?
     var travelDetails: [DestinationDetails]?

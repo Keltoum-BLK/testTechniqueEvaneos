@@ -18,7 +18,7 @@ class DestinationCell: UICollectionViewCell {
         image.image = UIImage(systemName: "star.fill")
         image.contentMode = .scaleAspectFill
         image.sizeToFit()
-        image.tintColor = .orange
+        image.tintColor = UIColor(red: 1.00, green: 0.70, blue: 0.00, alpha: 1)
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -37,7 +37,8 @@ class DestinationCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = .avertaBold(fontSize: 38)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.backgroundColor = .blue
@@ -101,16 +102,16 @@ class DestinationCell: UICollectionViewCell {
     
     private func setUpConstraints() {
         contentView.addSubview(destinationLabel)
-        destinationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
-        destinationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50).isActive = true
+        destinationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
+        destinationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -67).isActive = true
         destinationLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100).isActive = true
-        destinationLabel.bottomAnchor.constraint(equalTo:contentView.bottomAnchor, constant: -120).isActive = true
+        destinationLabel.bottomAnchor.constraint(equalTo:contentView.bottomAnchor, constant: -100).isActive = true
         
         contentView.addSubview(desc)
-        desc.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+        desc.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         desc.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -220).isActive = true
-        desc.topAnchor.constraint(equalTo: destinationLabel.bottomAnchor, constant:  50).isActive = true
-        desc.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30).isActive = true
+        desc.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 240).isActive = true
+        desc.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         
         contentView.addSubview(cardView)
         contentView.sendSubviewToBack(cardView)
@@ -119,11 +120,18 @@ class DestinationCell: UICollectionViewCell {
         cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
         cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
         
+//        contentView.addSubview(card)
+//        card.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+//        card.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50).isActive = true
+//        card.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100).isActive = true
+//        card.bottomAnchor.constraint(equalTo:contentView.bottomAnchor, constant: -30).isActive = true
+//        
+        
         contentView.addSubview(ratingStar)
-        ratingStar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+        ratingStar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         ratingStar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -150).isActive = true
-        ratingStar.topAnchor.constraint(equalTo: destinationLabel.bottomAnchor, constant: 5).isActive = true
-        ratingStar.bottomAnchor.constraint(equalTo: desc.topAnchor, constant: -10).isActive = true
+        ratingStar.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 200).isActive = true
+        ratingStar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -60).isActive = true
         
     }
     

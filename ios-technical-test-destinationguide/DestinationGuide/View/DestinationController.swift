@@ -18,22 +18,20 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        recoverData(tab: travels)
-        
+        recoverData()
         // Do any additional setup after loading the view.
     }
     
-    func recoverData(tab: [Destination])  {
+    func recoverData() {
         //        activitySetup()
         //        loadData = false
-        DestinationFetchingService.shared.getDestinations { result in
+        DestinationFetchingService.shared.getDestinations { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let destionations):
-                DispatchQueue.main.async { [self] in
+                DispatchQueue.main.async {
                     self.travels = Array(destionations)
-                    collectionView?.reloadData()
-                    print(self.travels.count)
-                        
+                    self.collectionView?.reloadData()
                     }
             case .failure(_):
                 return
@@ -91,6 +89,8 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.identifier , for: indexPath) as! DestinationCell
         cell.destinationLabel.text = travels[indexPath.row].name
+        cell.desc.text = travels[indexPath.row].tag?.lowercased()
+       
         return cell
     }
     

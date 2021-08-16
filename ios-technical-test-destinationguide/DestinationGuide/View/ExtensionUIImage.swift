@@ -11,20 +11,41 @@ import UIKit
 extension UIImageView {
     
     
-    func load(url: URL) {
-            DispatchQueue.global().async { [weak self] in
-                if let data = try? Data(contentsOf: url) {
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self?.image = image
-                        }
-                    }
-                }
-            }
-        }
+//    func load(url: URL) {
+//            DispatchQueue.global().async { [weak self] in
+//                if let data = try? Data(contentsOf: url) {
+//                    if let image = UIImage(data: data) {
+//                        DispatchQueue.main.async {
+//                            self?.image = image
+//                        }
+//                    }
+//                }
+//            }
+//        }
     
+//}
+private func downloadAvatar(destination: Destination) {
+
+    let imageUrl = destination.picture
+    guard let url = URL(string: imageUrl.absoluteString) else {
+         return
+     }
+
+     let task = URLSession.shared.dataTask(with: url) { data, response, error in
+         DispatchQueue.main.async {
+             
+         }
+         guard let data = data, error == nil else {
+             return
+         }
+         
+         var imageData = try! Data(contentsOf: imageUrl)
+         imageData = data
+     }
+
+     task.resume()
+ }
 }
-    
     
     
     

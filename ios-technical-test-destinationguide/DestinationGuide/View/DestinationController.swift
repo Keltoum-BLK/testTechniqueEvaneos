@@ -72,25 +72,40 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
         activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
-//
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let destinationDetails = storyboard?.instantiateViewController(withIdentifier: "WebPage") as? DetailsController
-        destinationDetails?.idDestination = travels[indexPath.row].id
-        self.navigationController?.pushViewController(destinationDetails ?? UIViewController(), animated: true)
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return travels.count
     }
     // the idDestination to another view to reuse it to recover webpage and destination's name for title
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.identifier , for: indexPath) as! DestinationCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.identifier , for: indexPath) as? DestinationCell else { return UICollectionViewCell() }
         cell.destinationLabel.text = travels[indexPath.row].name
         cell.desc.text = travels[indexPath.row].tag?.lowercased()
         cell.setRating(for: travels[indexPath.row].rating)
         cell.cardView.downloaded(from: travels[indexPath.row].picture)
         return cell
     }
+     
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: "WebPage", sender: DetailsController())
+        let destinationDetails = DetailsController()
+        self.navigationController?.pushViewController(destinationDetails, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       
+        if segue.identifier == "WebPage" {
+            guard let detailVC = segue.destination as? DetailsController else {return}
+            guard let index = sender as? String else { return }
+            detailVC.idDestination = index
+        }
+    }
+        
+       
+    
+    
+       
     
 }
 

@@ -12,50 +12,44 @@ class DetailsController: UIViewController, WKNavigationDelegate {
     
     let identifier = "WebPage"
     
-    var webPage: WKWebView = {
-        let web = WKWebView()
-        web.backgroundColor = .white
-        web.translatesAutoresizingMaskIntoConstraints = false
-        return web
-    }()
+    var webPage = WKWebView() 
     
     var idDestination: String?
-    var travelDetails: [DestinationDetails]?
+    var travelDetails = [DestinationDetails]()
     
     override func loadView() {
         webPage.navigationDelegate = self
-        view = webPage
     }
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setWeb()
-       
+        view.addSubview(webPage)
+        navigationController?.title = "Pays"
       
         // Do any additional setup after loading the view.
-        DestinationFetchingService.shared.getDestinationDetails(for: idDestination ?? "") { result in
-            switch result {
-            case .success(let details):
-                DispatchQueue.main.async {
-                    self.travelDetails = Array(arrayLiteral: details)
-                }
-            case .failure(_):
-                return
-            }
-        }
+//        DestinationFetchingService.shared.getDestinationDetails(for: idDestination ?? "") { result in
+//            switch result {
+//            case .success(let details):
+//                DispatchQueue.main.async {
+//                    self.travelDetails = Array(arrayLiteral: details)
+//                    var urlLink = URL(string: (travelDetails[index].url))
+//                    self.webPage.load(URLRequest(url: urlLink))
+//                    self.webPage.allowsBackForwardNavigationGestures = true
+//                }
+//            case .failure(_):
+//                return
+//            }
+//        }
         //déclarer l'URL ici
-//        let url = URL(string: travelDetails[index].url)!
-//        webPage.load(URLRequest(url: url))
-        webPage.allowsBackForwardNavigationGestures = true
+        guard let urlLink = URL(string: "https://lifeisstrange.square-enix-games.com/en-us/games/life-is-strange-true-colors/") else { return }
+        webPage.load(URLRequest(url: urlLink))
+       
     }
 
-    
-    func setWeb() {
-        view.addSubview(webPage)
-        webPage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        webPage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        webPage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        webPage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        webPage.frame = view.bounds
+        webPage.translatesAutoresizingMaskIntoConstraints = false
     }
 
   

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B9481C6326CBB6E400043126 /* DetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9481C6226CBB6E400043126 /* DetailsController.swift */; };
+		B9481C6926CC0B3600043126 /* ExtensionDestnationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9481C6826CC0B3600043126 /* ExtensionDestnationController.swift */; };
 		B9BA1C0C26C9381A000C5316 /* DestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA1C0B26C9381A000C5316 /* DestinationController.swift */; };
 		B9BA1C0E26C93D1F000C5316 /* DestinationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA1C0D26C93D1F000C5316 /* DestinationCell.swift */; };
 		B9BA1C1026C95266000C5316 /* ExtensionUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA1C0F26C95266000C5316 /* ExtensionUIImageView.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		B9481C6226CBB6E400043126 /* DetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsController.swift; sourceTree = "<group>"; };
+		B9481C6826CC0B3600043126 /* ExtensionDestnationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDestnationController.swift; sourceTree = "<group>"; };
 		B9BA1C0B26C9381A000C5316 /* DestinationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationController.swift; sourceTree = "<group>"; };
 		B9BA1C0D26C93D1F000C5316 /* DestinationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCell.swift; sourceTree = "<group>"; };
 		B9BA1C0F26C95266000C5316 /* ExtensionUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIImageView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				B9BA1C0F26C95266000C5316 /* ExtensionUIImageView.swift */,
+				B9481C6826CC0B3600043126 /* ExtensionDestnationController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				E7878C1D26BACE2400CF1DB8 /* Styles.swift in Sources */,
 				B9BA1C0E26C93D1F000C5316 /* DestinationCell.swift in Sources */,
 				E794201A26B853F10032C12E /* Destination.swift in Sources */,
+				B9481C6926CC0B3600043126 /* ExtensionDestnationController.swift in Sources */,
 				E7AE6A8A26B81F4F0059FB12 /* AppDelegate.swift in Sources */,
 				E7AE6A8C26B81F4F0059FB12 /* SceneDelegate.swift in Sources */,
 				B9BA1C1026C95266000C5316 /* ExtensionUIImageView.swift in Sources */,

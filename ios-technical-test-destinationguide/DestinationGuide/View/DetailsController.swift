@@ -12,17 +12,22 @@ class DetailsController: UIViewController, WKNavigationDelegate {
     
     let identifier = "WebPage"
     
-    var webPage = WKWebView() 
+    var webPage:  WKWebView = {
+        let webView = WKWebView()
+        return webView
+    }()
     
     var idDestination: String?
     var travelDetails = [DestinationDetails]()
     
     override func loadView() {
-        webPage.navigationDelegate = self
+       
+        view = webPage
     }
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        webPage.navigationDelegate = self
         view.addSubview(webPage)
         navigationController?.title = "Pays"
       
@@ -48,7 +53,7 @@ class DetailsController: UIViewController, WKNavigationDelegate {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        webPage.frame = view.bounds
+        
         webPage.translatesAutoresizingMaskIntoConstraints = false
     }
 

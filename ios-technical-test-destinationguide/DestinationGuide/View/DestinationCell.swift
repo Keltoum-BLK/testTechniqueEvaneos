@@ -72,6 +72,12 @@ class DestinationCell: UICollectionViewCell {
         return descLabel
     }()
     
+    var veil: CALayer = {
+        let view = CALayer()
+        view.backgroundColor = .init(red: 20, green: 20, blue: 20, alpha: 0.3)
+        return view
+    }()
+    
     var card: UIStackView = {
        let cardDestination = UIStackView()
         cardDestination.axis = .vertical
@@ -118,6 +124,9 @@ class DestinationCell: UICollectionViewCell {
         cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
         cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
         cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
+       
+       
+        
         
      
         contentView.addSubview(card)

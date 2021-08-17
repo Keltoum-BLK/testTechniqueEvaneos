@@ -28,15 +28,15 @@ extension DestinationController : UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
        
         let idDestination = travels[indexPath.row].id
-        performSegue(withIdentifier: "WebPage", sender: idDestination)
+        goToNextVc(for: idDestination)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
 
-        if segue.identifier == "WebPage" {
-            guard let detailVC = segue.destination as? DetailsController else {return}
-            detailVC.idDestination = sender as? String
-            self.navigationController?.pushViewController(detailVC, animated: true)
-            }
+    private func goToNextVc(for idDestination: String) {
+        
+        let detailsVc = DetailsController()
+        detailsVc.idDestination = idDestination
+        navigationController?.pushViewController(detailsVc, animated: true)
     }
 }

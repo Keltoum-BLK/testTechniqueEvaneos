@@ -20,17 +20,13 @@ class DetailsController: UIViewController, WKNavigationDelegate {
     var idDestination: String?
     var travelDetails = [DestinationDetails]()
     
-    override func loadView() {
-       
-        view = webPage
-    }
    
     override func viewDidLoad() {
         super.viewDidLoad()
         webPage.navigationDelegate = self
         view.addSubview(webPage)
         navigationController?.title = "Pays"
-      
+        view = webPage
         // Do any additional setup after loading the view.
 //        DestinationFetchingService.shared.getDestinationDetails(for: idDestination ?? "") { result in
 //            switch result {

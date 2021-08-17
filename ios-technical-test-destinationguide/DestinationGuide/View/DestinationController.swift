@@ -72,7 +72,7 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
         activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
-    
+//
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let destinationDetails = storyboard?.instantiateViewController(withIdentifier: "WebPage") as? DetailsController
         destinationDetails?.idDestination = travels[indexPath.row].id
@@ -91,7 +91,7 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
         cell.cardView.downloaded(from: travels[indexPath.row].picture)
         return cell
     }
-
+    
 }
 
 

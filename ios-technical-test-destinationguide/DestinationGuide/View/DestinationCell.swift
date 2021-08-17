@@ -48,12 +48,12 @@ class DestinationCell: UICollectionViewCell {
     var ratingStar: UIStackView = {
         let starsField = UIStackView()
         starsField.axis = .horizontal
-        starsField.alignment = .trailing
+        starsField.alignment = .leading
         starsField.spacing = 10
-        starsField.distribution = .fillEqually
-        starsField.alignment = .fill
+        starsField.distribution = .fillProportionally
         starsField.sizeThatFits(CGSize(width: 150, height: 40))
         starsField.clipsToBounds = true
+        starsField.backgroundColor = .white
         starsField.translatesAutoresizingMaskIntoConstraints = false
 //        starsField.backgroundColor = .blue
         return starsField
@@ -128,8 +128,7 @@ class DestinationCell: UICollectionViewCell {
         card.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -67).isActive = true
         card.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 110).isActive = true
         card.bottomAnchor.constraint(equalTo:contentView.bottomAnchor, constant: -30).isActive = true
-        
-        
+      
         
 //        contentView.addSubview(ratingStar)
 //        ratingStar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
@@ -150,10 +149,10 @@ class DestinationCell: UICollectionViewCell {
     }
     
     
-    func setRating(for rating : Int) {
-        for _ in 0...maxOfStar {
+    func setRating(for times : Int) {
+        for _ in 0...times {
             tabStar.append(starImage)
-            ratingStar.addSubview(starImage)
+            ratingStar.addArrangedSubview(starImage)
         }
     }
     

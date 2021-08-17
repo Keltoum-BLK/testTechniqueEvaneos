@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class DetailsController: UINavigationController, WKNavigationDelegate {
+class DetailsController: UIViewController, WKNavigationDelegate {
     
     let identifier = "WebPage"
     
@@ -58,14 +58,5 @@ class DetailsController: UINavigationController, WKNavigationDelegate {
         webPage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  
 }

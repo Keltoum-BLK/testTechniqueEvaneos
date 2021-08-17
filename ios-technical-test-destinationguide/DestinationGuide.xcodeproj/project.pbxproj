@@ -109,8 +109,8 @@
 			children = (
 				B9A4F0F526CAFA58001B11FC /* Extension */,
 				B9BA1C0B26C9381A000C5316 /* DestinationController.swift */,
-				B9BA1C0D26C93D1F000C5316 /* DestinationCell.swift */,
 				B9481C6226CBB6E400043126 /* DetailsController.swift */,
+				B9BA1C0D26C93D1F000C5316 /* DestinationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

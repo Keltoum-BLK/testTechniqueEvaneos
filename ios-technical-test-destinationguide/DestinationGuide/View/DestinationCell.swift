@@ -17,7 +17,7 @@ class DestinationCell: UICollectionViewCell {
         let image = UIImageView()
         image.image = UIImage(systemName: "star.fill")
         image.contentMode = .scaleAspectFill
-        image.tintColor = UIColor(red: 1.00, green: 0.70, blue: 0.00, alpha: 1)
+        image.tintColor = UIColor.evaneos(color: .gold)
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -35,6 +35,7 @@ class DestinationCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = .avertaBold(fontSize: 38)
+        label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 2
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -51,6 +52,7 @@ class DestinationCell: UICollectionViewCell {
         starsField.spacing = 10
         starsField.distribution = .fillEqually
         starsField.alignment = .fill
+        starsField.sizeThatFits(CGSize(width: 150, height: 40))
         starsField.clipsToBounds = true
         starsField.translatesAutoresizingMaskIntoConstraints = false
 //        starsField.backgroundColor = .blue
@@ -65,7 +67,6 @@ class DestinationCell: UICollectionViewCell {
         descLabel.layer.cornerRadius = 5
         descLabel.font = .avertaBold(fontSize: 16)
         descLabel.numberOfLines = 0
-        descLabel.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         descLabel.clipsToBounds = true 
         descLabel.translatesAutoresizingMaskIntoConstraints = false
         return descLabel
@@ -86,7 +87,6 @@ class DestinationCell: UICollectionViewCell {
         contentViewSetUp()
         layoutSubviews()
         setUpConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -111,7 +111,7 @@ class DestinationCell: UICollectionViewCell {
 //        desc.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -220).isActive = true
 //        desc.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 240).isActive = true
 //        desc.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
-        
+//
         contentView.addSubview(cardView)
         contentView.sendSubviewToBack(cardView)
         cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
@@ -119,6 +119,7 @@ class DestinationCell: UICollectionViewCell {
         cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
         cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
         
+     
         contentView.addSubview(card)
         card.addArrangedSubview(destinationLabel)
         card.addArrangedSubview(ratingStar)
@@ -127,8 +128,8 @@ class DestinationCell: UICollectionViewCell {
         card.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -67).isActive = true
         card.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 110).isActive = true
         card.bottomAnchor.constraint(equalTo:contentView.bottomAnchor, constant: -30).isActive = true
-//        desc.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -70).isActive = true
-//        
+        
+        
         
 //        contentView.addSubview(ratingStar)
 //        ratingStar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
@@ -138,6 +139,7 @@ class DestinationCell: UICollectionViewCell {
         
     }
     
+   
     private func contentViewSetUp() {
         contentView.layer.cornerRadius = 20
         contentView.backgroundColor = .clear

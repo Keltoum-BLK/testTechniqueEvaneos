@@ -18,6 +18,7 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        activitySetup()
         recoverData()
         // Do any additional setup after loading the view.
     }
@@ -31,9 +32,11 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
             case .success(let destionations):
                 DispatchQueue.main.async {
                     self.travels = Array(destionations)
+                    self.activityIndicator.stopAnimating()
                     self.collectionView?.reloadData()
                     }
             case .failure(_):
+                self.activityIndicator.stopAnimating()
                 return
                 }
            
@@ -43,6 +46,7 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
     func setupCollectionView() {
         let view = UIView()
         view.backgroundColor = .white
+        activityIndicator.startAnimating()
         setupLayout()
         collectionView?.register(DestinationCell.self, forCellWithReuseIdentifier: DestinationCell.identifier)
         collectionView?.backgroundColor = .white
@@ -67,16 +71,10 @@ class DestinationController: UIViewController,UICollectionViewDataSource, UIColl
         collectionView?.addSubview(activityIndicator)
         activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        
-        //        if !loadData {
-        //            activityIndicator.stopAnimating()
-        //        } else {
-        //            activityIndicator.startAnimating()
-        //        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let destinationDetails = storyboard?.instantiateViewController(withIdentifier: "WebPage") as? DestinationDetailsController
+        let destinationDetails = storyboard?.instantiateViewController(withIdentifier: "WebPage") as? DetailsController
         destinationDetails?.idDestination = travels[indexPath.row].id
         self.navigationController?.pushViewController(destinationDetails ?? UIViewController(), animated: true)
     }

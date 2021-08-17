@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9481C6326CBB6E400043126 /* DetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9481C6226CBB6E400043126 /* DetailsController.swift */; };
 		B9BA1C0C26C9381A000C5316 /* DestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA1C0B26C9381A000C5316 /* DestinationController.swift */; };
 		B9BA1C0E26C93D1F000C5316 /* DestinationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA1C0D26C93D1F000C5316 /* DestinationCell.swift */; };
-		B9BA1C1026C95266000C5316 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA1C0F26C95266000C5316 /* ExtensionUIImage.swift */; };
-		B9BA1C1526C97BF6000C5316 /* DestinationDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA1C1426C97BF6000C5316 /* DestinationDetailsController.swift */; };
+		B9BA1C1026C95266000C5316 /* ExtensionUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA1C0F26C95266000C5316 /* ExtensionUIImageView.swift */; };
 		E7878C1D26BACE2400CF1DB8 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7878C1C26BACE2400CF1DB8 /* Styles.swift */; };
 		E7878C2526BACF3E00CF1DB8 /* Averta-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E7878C2026BACF3E00CF1DB8 /* Averta-Light.otf */; };
 		E7878C2626BACF3E00CF1DB8 /* Averta-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E7878C2126BACF3E00CF1DB8 /* Averta-Regular.otf */; };
@@ -46,10 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B9481C6226CBB6E400043126 /* DetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsController.swift; sourceTree = "<group>"; };
 		B9BA1C0B26C9381A000C5316 /* DestinationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationController.swift; sourceTree = "<group>"; };
 		B9BA1C0D26C93D1F000C5316 /* DestinationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCell.swift; sourceTree = "<group>"; };
-		B9BA1C0F26C95266000C5316 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIImage.swift; sourceTree = "<group>"; };
-		B9BA1C1426C97BF6000C5316 /* DestinationDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationDetailsController.swift; sourceTree = "<group>"; };
+		B9BA1C0F26C95266000C5316 /* ExtensionUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIImageView.swift; sourceTree = "<group>"; };
 		E7878C1C26BACE2400CF1DB8 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		E7878C2026BACF3E00CF1DB8 /* Averta-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Averta-Light.otf"; sourceTree = "<group>"; };
 		E7878C2126BACF3E00CF1DB8 /* Averta-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Averta-Regular.otf"; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 		B9A4F0F526CAFA58001B11FC /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				B9BA1C0F26C95266000C5316 /* ExtensionUIImage.swift */,
+				B9BA1C0F26C95266000C5316 /* ExtensionUIImageView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -110,7 +110,7 @@
 				B9A4F0F526CAFA58001B11FC /* Extension */,
 				B9BA1C0B26C9381A000C5316 /* DestinationController.swift */,
 				B9BA1C0D26C93D1F000C5316 /* DestinationCell.swift */,
-				B9BA1C1426C97BF6000C5316 /* DestinationDetailsController.swift */,
+				B9481C6226CBB6E400043126 /* DetailsController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -341,15 +341,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				E794201726B83C0E0032C12E /* DestinationFetchingService.swift in Sources */,
+				B9481C6326CBB6E400043126 /* DetailsController.swift in Sources */,
 				E7878C1D26BACE2400CF1DB8 /* Styles.swift in Sources */,
 				B9BA1C0E26C93D1F000C5316 /* DestinationCell.swift in Sources */,
 				E794201A26B853F10032C12E /* Destination.swift in Sources */,
 				E7AE6A8A26B81F4F0059FB12 /* AppDelegate.swift in Sources */,
 				E7AE6A8C26B81F4F0059FB12 /* SceneDelegate.swift in Sources */,
-				B9BA1C1026C95266000C5316 /* ExtensionUIImage.swift in Sources */,
+				B9BA1C1026C95266000C5316 /* ExtensionUIImageView.swift in Sources */,
 				E794201C26B854040032C12E /* DestinationDetails.swift in Sources */,
 				B9BA1C0C26C9381A000C5316 /* DestinationController.swift in Sources */,
-				B9BA1C1526C97BF6000C5316 /* DestinationDetailsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

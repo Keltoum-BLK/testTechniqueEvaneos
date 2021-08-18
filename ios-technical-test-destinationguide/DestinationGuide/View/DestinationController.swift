@@ -20,7 +20,8 @@ class DestinationController: UIViewController {
         setupCollectionView()
         activitySetup()
         recoverData()
-        // Do any additional setup after loading the view.
+        collectionView?.dataSource = self
+        collectionView?.delegate = self
     }
     
     func recoverData() {
@@ -34,36 +35,30 @@ class DestinationController: UIViewController {
                     self.travels = Array(destionations)
                     self.activityIndicator.stopAnimating()
                     self.collectionView?.reloadData()
-                    }
+                }
             case .failure(_):
                 self.activityIndicator.stopAnimating()
                 return
-                }
-           
             }
+            
         }
+    }
     
     func setupCollectionView() {
-        let view = UIView()
-        view.backgroundColor = .white
         activityIndicator.startAnimating()
         setupLayout()
         collectionView?.register(DestinationCell.self, forCellWithReuseIdentifier: DestinationCell.identifier)
         collectionView?.backgroundColor = .white
-        collectionView?.dataSource = self
-        collectionView?.delegate = self
-        view.addSubview(collectionView ?? UICollectionView())
-        self.view = collectionView
+        view = collectionView
         navigationItem.title = "Destinations"
-        
     }
     
     func setupLayout() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         layout.minimumInteritemSpacing = 20
-        layout.itemSize = CGSize(width: self.view.frame.width - 40, height: view.frame.height - 580)
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        layout.itemSize = CGSize(width: view.frame.width - 40, height: view.frame.height / 3)
+        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
     }
     
     func activitySetup() {
@@ -72,12 +67,27 @@ class DestinationController: UIViewController {
         activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
-//
-   
-
-
 }
 
+extension DestinationController: UICollectionViewDelegate, UICollectionViewDataSource {
 
-
-
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return travels.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.identifier, for: indexPath) as! DestinationCell
+        cell.destinationLabel.text = travels[indexPath.row].name
+        cell.desc.text = travels[indexPath.row].tag
+        cell.cardView.downloaded(from: travels[indexPath.row].picture)
+        cell.setRating(for: travels[indexPath.row].rating)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailsVC = DetailsController()
+        detailsVC.idDestination = travels[indexPath.row].id
+        navigationController?.pushViewController(detailsVC, animated: true)
+        print(indexPath.row)
+    }  
+}

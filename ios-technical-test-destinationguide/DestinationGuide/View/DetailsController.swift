@@ -9,49 +9,46 @@ import UIKit
 import WebKit
 
 class DetailsController: UIViewController, WKNavigationDelegate {
+ 
+    private var travelDetails = ""
+    private var name = ""
     
-    let identifier = "WebPage"
-    
-    var webPage:  WKWebView = {
-        let webView = WKWebView()
-        return webView
-    }()
+    var webPage = WKWebView()
     
     var idDestination: String?
-    var travelDetails = [DestinationDetails]()
-    
-   
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-        webPage.navigationDelegate = self
-        view.addSubview(webPage)
-        navigationController?.title = "Pays"
         view = webPage
+        DetailsLoad()
+        webPage.navigationDelegate = self
+        webPage.allowsBackForwardNavigationGestures = true
         // Do any additional setup after loading the view.
-//        DestinationFetchingService.shared.getDestinationDetails(for: idDestination ?? "") { result in
-//            switch result {
-//            case .success(let details):
-//                DispatchQueue.main.async {
-//                    self.travelDetails = Array(arrayLiteral: details)
-//                    var urlLink = URL(string: (travelDetails[index].url))
-//                    self.webPage.load(URLRequest(url: urlLink))
-//                    self.webPage.allowsBackForwardNavigationGestures = true
-//                }
-//            case .failure(_):
-//                return
-//            }
-//        }
-        //déclarer l'URL ici
-        guard let urlLink = URL(string: "https://lifeisstrange.square-enix-games.com/en-us/games/life-is-strange-true-colors/") else { return }
-        webPage.load(URLRequest(url: urlLink))
-       
+        
+    
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         webPage.translatesAutoresizingMaskIntoConstraints = false
     }
 
-  
+    private func DetailsLoad() {
+        DestinationFetchingService.shared.getDestinationDetails(for: idDestination ?? "") { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let details):
+                DispatchQueue.main.async {
+                    self.travelDetails = details.url.absoluteString
+                    self.name = details.name
+                    self.navigationItem.title = self.name
+                    guard let urlLink = URL(string: self.travelDetails) else { return }
+                    self.webPage.load(URLRequest(url: urlLink))
+                }
+            case .failure(_):
+                return
+            }
+        }
+        navigationItem.backBarButtonItem?.title = "Back"
+    }
 }

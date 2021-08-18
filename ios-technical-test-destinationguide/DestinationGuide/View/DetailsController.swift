@@ -10,45 +10,51 @@ import WebKit
 
 class DetailsController: UIViewController, WKNavigationDelegate {
  
-    private var travelDetails = ""
-    private var name = ""
-    
-    var webPage = WKWebView()
-    
+    private var webPage = WKWebView()
     var idDestination: String?
+    
+    override func loadView() {
+        view = webPage
+    }
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = webPage
         DetailsLoad()
         webPage.navigationDelegate = self
-        webPage.allowsBackForwardNavigationGestures = true
-        // Do any additional setup after loading the view.
-        
     
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    private func setUpWebPage() {
+        webPage.navigationDelegate = self
+        webPage.allowsBackForwardNavigationGestures = true
         webPage.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func DetailsLoad() {
-        DestinationFetchingService.shared.getDestinationDetails(for: idDestination ?? "") { [weak self] result in
+        guard let idDestination = idDestination else {
+            return
+        }
+
+        DestinationFetchingService.shared.getDestinationDetails(for: idDestination) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let details):
-                DispatchQueue.main.async {
-                    self.travelDetails = details.url.absoluteString
-                    self.name = details.name
-                    self.navigationItem.title = self.name
-                    guard let urlLink = URL(string: self.travelDetails) else { return }
-                    self.webPage.load(URLRequest(url: urlLink))
-                }
-            case .failure(_):
-                return
+            case .success(let detailsDestionation):
+                self.updateView(with: detailsDestionation)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
-        navigationItem.backBarButtonItem?.title = "Back"
     }
+    
+    private func updateView(with destination: DestinationDetails) {
+        DispatchQueue.main.async {
+            self.navigationItem.title = destination.name
+            guard let urlLink = URL(string: destination.url.absoluteString) else { return }
+            self.webPage.load(URLRequest(url: urlLink))
+        }
+    }
+    
+    
+    
+    
 }

@@ -11,11 +11,11 @@ class DestinationCell: UICollectionViewCell {
     
     static let identifier = "destinationCell"
     
-    var star1 = UIImageView()
-    var star2 = UIImageView()
-    var star3 = UIImageView()
-    var star4 = UIImageView()
-    var star5 = UIImageView()
+    private var star1 = UIImageView()
+    private var star2 = UIImageView()
+    private var star3 = UIImageView()
+    private var star4 = UIImageView()
+    private var star5 = UIImageView()
     
     var cardView: UIImageView = {
         let imageView = UIImageView()
@@ -25,15 +25,14 @@ class DestinationCell: UICollectionViewCell {
         return imageView
     }()
     
-    var filterView: UIView = {
-        let veil = UIView()
-        veil.backgroundColor = .yellow
-        veil.isOpaque = true
-        veil.translatesAutoresizingMaskIntoConstraints = false
-        return veil
-    }()
+//    var filterView: UIView = {
+//        let veil = UIView()
+//        veil.backgroundColor = .blue
+//        veil.translatesAutoresizingMaskIntoConstraints = false
+//        return veil
+//    }()
     
-    private lazy var gradientView: CAGradientLayer = {
+    private var gradientView: CAGradientLayer = {
         let veil = CAGradientLayer()
         veil.colors = [UIColor.clear, UIColor.black]
         veil.startPoint = CGPoint(x: 1, y: 0)
@@ -126,7 +125,19 @@ class DestinationCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         layer.shadowOpacity = 0.2
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowOffset = CGSize(width: 0, height: 20)
+        layer.shadowRadius = 20
+    }
+    
+    private func setUpGradient() {
+        gradientView.frame.size = contentView.frame.size
+        contentView.layer.addSublayer(gradientView)
+        contentView.addSubview(cardView)
+        contentView.sendSubviewToBack(cardView)
+        cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
+        cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
+        cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
+        cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
     }
     
     private func setUpImage(image : UIImageView) {
@@ -178,19 +189,6 @@ class DestinationCell: UICollectionViewCell {
         default:
             break
         }
-    }
-    
-    private func setUpGradient() {
-        gradientView.frame = filterView.bounds
-        filterView.layer.insertSublayer(gradientView, at: 0)
-        contentView.addSubview(cardView)
-        contentView.sendSubviewToBack(cardView)
-        cardView.addSubview(filterView)
-        cardView.bringSubviewToFront(filterView)
-        cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
-        cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
-        cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
-        cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
     }
 }
 

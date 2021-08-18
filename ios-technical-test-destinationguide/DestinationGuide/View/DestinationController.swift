@@ -25,8 +25,6 @@ class DestinationController: UIViewController {
     }
     
     func recoverData() {
-        //        activitySetup()
-        //        loadData = false
         DestinationFetchingService.shared.getDestinations { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -58,7 +56,7 @@ class DestinationController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         layout.minimumInteritemSpacing = 20
         layout.itemSize = CGSize(width: view.frame.width - 40, height: view.frame.height / 3)
-        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     }
     
     func activitySetup() {

@@ -9,25 +9,27 @@ import XCTest
 @testable import DestinationGuide
 
 class DestinationFletchingServiceTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    //MARK: Variables to access to the methods for the unit tests
+    var destinationFletch: DestinationFetchingService!
+    var destination: Destination!
+    
+    override func setUp() {
+        super.setUp()
+        destinationFletch = DestinationFetchingService()
+        destination = Destination(id: "", name: "", picture: (URL(string: ""))!, tag: "", rating: 0)
     }
-
+    
+    override class func tearDown() {
+        super.tearDown()
+    }
+    
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        destinationFletch = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    func testGivenAId_WhenCallFakeApi_ThenGetDestinationId() {
+        
+}
 
 }

@@ -8,12 +8,13 @@
 import UIKit
 
 class DestinationController: UIViewController {
-    
+//MARK: Variables using to run the collectionView
+    //variables useful for the use of the collectionView and the retrieval of the data.
     private var collectionView: UICollectionView?
     private var activityIndicator = UIActivityIndicatorView(style: .large)
     private let idCell = "idCell"
-    var travels = [Destination]()
-    var loadData = true
+    private var travels = [Destination]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,17 +24,13 @@ class DestinationController: UIViewController {
         collectionView?.dataSource = self
         collectionView?.delegate = self
     }
-    
+    //network call for Data recovery
     func recoverData() {
         DestinationFetchingService.shared.getDestinations { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let destionations):
-                DispatchQueue.main.async {
-                    self.travels = Array(destionations)
-                    self.activityIndicator.stopAnimating()
-                    self.collectionView?.reloadData()
-                }
+            case .success(let destinations):
+                self.updateData(with: Array(destinations))
             case .failure(_):
                 self.activityIndicator.stopAnimating()
                 return
@@ -41,7 +38,16 @@ class DestinationController: UIViewController {
             
         }
     }
-    
+    //assign the Set to an array, stop view load animation and retrieval with updating data in the CollectionView
+    func updateData(with destination: [Destination]) {
+        DispatchQueue.main.async {
+            self.travels = Array(destination)
+            self.activityIndicator.stopAnimating()
+            self.collectionView?.reloadData()
+        }
+    }
+    //MARK: Methods to setUP the view and the activity indicator.
+    //register,set the colletionView to the the view, call load animation and setUpLayout method
     func setupCollectionView() {
         activityIndicator.startAnimating()
         setupLayout()
@@ -66,7 +72,7 @@ class DestinationController: UIViewController {
         activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
 }
-
+//MARK: Extension to configure the view with the cell and data and also push to a DetailsController
 extension DestinationController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -76,7 +82,7 @@ extension DestinationController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.identifier, for: indexPath) as! DestinationCell
         cell.destinationLabel.text = travels[indexPath.row].name
-        cell.desc.text = travels[indexPath.row].tag
+        cell.desc.text = travels[indexPath.row].tag?.lowercased()
         cell.cardView.downloaded(from: travels[indexPath.row].picture)
         cell.setRating(for: travels[indexPath.row].rating)
         return cell

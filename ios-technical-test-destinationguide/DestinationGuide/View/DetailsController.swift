@@ -9,7 +9,7 @@ import UIKit
 import WebKit
 
 class DetailsController: UIViewController, WKNavigationDelegate {
- 
+ //MARK: Variables using to run the webView
     private var webPage = WKWebView()
     var idDestination: String?
     
@@ -23,7 +23,7 @@ class DetailsController: UIViewController, WKNavigationDelegate {
         webPage.navigationDelegate = self
     
     }
-    
+  //MARK: SetUp the webView and recover the data to load webView and webView's title 
     private func setUpWebPage() {
         webPage.navigationDelegate = self
         webPage.allowsBackForwardNavigationGestures = true

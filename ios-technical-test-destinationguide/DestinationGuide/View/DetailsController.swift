@@ -19,16 +19,13 @@ class DetailsController: UIViewController, WKNavigationDelegate {
     }()
     var idDestination: String?
     
-    override func loadView() {
-        super.loadView()
-        view = webPage
-    }
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.backButtonTitle = "Back"
+        view = webPage
         DetailsLoad()
         webPage.navigationDelegate = self
+        navigationItem.backButtonTitle = "Back"
     
     }
   //MARK: SetUp the webView and recover the data to load webView and webView's title
@@ -53,7 +50,7 @@ class DetailsController: UIViewController, WKNavigationDelegate {
             self.webPage.load(URLRequest(url: urlLink))
         }
     }
-    
+    //activity loader 
     func activitySetup() {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         webPage.addSubview(activityIndicator)

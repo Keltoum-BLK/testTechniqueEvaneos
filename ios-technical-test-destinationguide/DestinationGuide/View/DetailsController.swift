@@ -11,40 +11,36 @@ import WebKit
 class DetailsController: UIViewController, WKNavigationDelegate {
  //MARK: Variables using to run the webView
     private var activityIndicator = UIActivityIndicatorView(style: .large)
-    private var webPage = WKWebView()
+    private var webPage:WKWebView = {
+        let webView = WKWebView()
+        webView.allowsBackForwardNavigationGestures = true
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        return webView
+    }()
     var idDestination: String?
     
     override func loadView() {
+        super.loadView()
         view = webPage
     }
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator.startAnimating()
+        navigationItem.backButtonTitle = "Back"
         DetailsLoad()
         webPage.navigationDelegate = self
     
     }
-  //MARK: SetUp the webView and recover the data to load webView and webView's title 
-    private func setUpWebPage() {
-        webPage.navigationDelegate = self
-        webPage.allowsBackForwardNavigationGestures = true
-        webPage.translatesAutoresizingMaskIntoConstraints = false
-    }
-
+  //MARK: SetUp the webView and recover the data to load webView and webView's title
     private func DetailsLoad() {
-        guard let idDestination = idDestination else {
-            return
-        }
+        guard let idDestination = idDestination else { return }
 
         DestinationFetchingService.shared.getDestinationDetails(for: idDestination) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let detailsDestionation):
                 self.updateView(with: detailsDestionation)
-                self.activityIndicator.stopAnimating()
             case .failure(let error):
-                self.activityIndicator.stopAnimating()
                 print(error.localizedDescription)
             }
         }

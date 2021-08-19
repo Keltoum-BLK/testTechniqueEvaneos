@@ -68,8 +68,8 @@ class DestinationController: UIViewController {
     func activitySetup() {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.addSubview(activityIndicator)
-        activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 }
 //MARK: Extension to configure the view with the cell and data and also push to a DetailsController
@@ -84,6 +84,7 @@ extension DestinationController: UICollectionViewDelegate, UICollectionViewDataS
         cell.destinationLabel.text = travels[indexPath.row].name
         cell.desc.text = travels[indexPath.row].tag?.lowercased()
         cell.cardView.downloaded(from: travels[indexPath.row].picture)
+        cell.addGradientLayer(imageView: cell.cardView)
         cell.setRating(for: travels[indexPath.row].rating)
         return cell
     }

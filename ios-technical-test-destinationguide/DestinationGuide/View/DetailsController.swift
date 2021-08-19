@@ -10,6 +10,7 @@ import WebKit
 
 class DetailsController: UIViewController, WKNavigationDelegate {
  //MARK: Variables using to run the webView
+    private var activityIndicator = UIActivityIndicatorView(style: .large)
     private var webPage = WKWebView()
     var idDestination: String?
     
@@ -19,6 +20,7 @@ class DetailsController: UIViewController, WKNavigationDelegate {
  
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.startAnimating()
         DetailsLoad()
         webPage.navigationDelegate = self
     
@@ -40,7 +42,9 @@ class DetailsController: UIViewController, WKNavigationDelegate {
             switch result {
             case .success(let detailsDestionation):
                 self.updateView(with: detailsDestionation)
+                self.activityIndicator.stopAnimating()
             case .failure(let error):
+                self.activityIndicator.stopAnimating()
                 print(error.localizedDescription)
             }
         }
@@ -54,7 +58,12 @@ class DetailsController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    
+    func activitySetup() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        webPage.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: webPage.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: webPage.centerYAnchor).isActive = true
+    }
     
     
 }

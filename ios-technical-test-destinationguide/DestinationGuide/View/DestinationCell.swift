@@ -129,13 +129,15 @@ class DestinationCell: UICollectionViewCell {
         layer.shadowRadius = 20
     }
     //addind the gradient to the view
-    func addGradientLayer(frame : CGRect) {
+    func addGradientLayer(imageView: UIImageView) {
         let gradient = CAGradientLayer()
-        gradient.frame = frame
-        gradient.colors = [UIColor.clear, UIColor.black]
+        gradient.colors = [UIColor.clear.cgColor, UIColor.evaneos(color: .ink).cgColor]
         gradient.startPoint = CGPoint(x: 1, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 1)
-        layer.addSublayer(gradient)
+        gradient.opacity = 0.25
+        gradient.locations = [0,1]
+        gradient.frame = imageView.bounds
+        imageView.layer.insertSublayer(gradient, at: 0)
     }
     //MARK: SetUp and method for update the rating star for each destination.
     //setup of the stars image
